@@ -15,16 +15,12 @@ public class Main {
         List<String> bordersList = new ArrayList<>();
 
         for (int i = 0; i < subStrings.size(); i++) {
-            String result = findBorder(subStrings.get(i));
-
-            if ( !result.equals("") ) {
-                bordersList.add(result);
-            }
+            bordersList.add(findBorder(subStrings.get(i)));
         }
 
         System.out.println("Массив подстрок: " + subStrings.toString());
 
-        System.out.println("Массив граней: " + bordersList.toString());
+        System.out.println("Массив граней  : " + bordersList.toString());
     }
 
     public static String findBorder(String string) {
@@ -57,17 +53,15 @@ public class Main {
         List<String> result = new ArrayList<>();
 
         char[] arr = source.toCharArray();
-        for (int i = 0; i < arr.length; i++) {
-            String subStr = "";
-            for (int j = i; j < arr.length; j++) {
-                if (j == i)
-                    continue;
-                for (int k = i; k <= j; k++) {
-                    subStr += arr[k];
-                }
-                result.add(subStr);
-                subStr = "";
+        String subStr = "";
+        for (int j = 0; j < arr.length; j++) {
+            if (j == 0)
+                continue;
+            for (int k = 0; k <= j; k++) {
+                subStr += arr[k];
             }
+            result.add(subStr);
+            subStr = "";
         }
 
         return result;
