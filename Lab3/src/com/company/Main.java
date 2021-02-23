@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,10 +10,34 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        char[] arr = input.toCharArray();
 
-        List<String> subStrings =  generateSubStrings(in.nextLine());
+        int n = arr.length;
+        int[] borders = new int[n];
+
+        borders[0] = 0;
+
+        int bordersRight;
+        for (int i = 1; i < n ; i++) {
+            bordersRight = borders[i - 1];
+            while (bordersRight > 0 && (arr[i] != arr[bordersRight])) {
+                bordersRight = borders[bordersRight - 1];
+            }
+
+            if (arr[i] == arr[bordersRight]) {
+                borders[i] = bordersRight + 1;
+            } else {
+                borders[i] = 0;
+            }
+        }
+
+        System.out.println(Arrays.toString(borders));
+
+        List<String> subStrings =  generateSubStrings(input);
 
         List<String> bordersList = new ArrayList<>();
+        bordersList.add("");
 
         for (int i = 0; i < subStrings.size(); i++) {
             bordersList.add(findBorder(subStrings.get(i)));
